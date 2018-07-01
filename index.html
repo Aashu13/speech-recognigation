@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<style>
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        background: #855940;
+    }
+
+    .content {
+        width: 300px;
+        margin: 200px auto;
+        background: #fff;
+    }
+
+    p {
+        font-size: 25px;
+        color: #ddd;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+</style>
+
+<body>
+
+    <div class="content">
+
+    </div>
+
+
+    <script>
+        window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        var recognition = new SpeechRecognition();
+        recognition.intrimResult = true;
+        var p = document.createElement('p');
+        var content = document.querySelector('.content');
+        content.appendChild(p);
+
+
+        recognition.addEventListener("result", function (e) {
+            var transScriptText = Array.from(e.result)
+                .map(result => result[0]).map(reuslt => transScriptText).join("");
+
+            p.textContent = transScriptText;
+            if (e.results[0].isFinal) {
+                p = document.createElement('p');
+                content.appendChild(p);
+            }
+
+        });
+
+
+        recognition.addEventListener('end', recognition.start);
+        recognition.start();
+    </script>
+</body>
+
+</html>
